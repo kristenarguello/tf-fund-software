@@ -2,7 +2,7 @@ package br.fds.demo.Dominio;
 
 import java.util.List;
 
-import br.fds.demo.Entidades.Produto;
+import br.fds.demo.Dominio.Entidades.Produto;
 
 public  interface IRepProdutos {
     void save(Produto p);

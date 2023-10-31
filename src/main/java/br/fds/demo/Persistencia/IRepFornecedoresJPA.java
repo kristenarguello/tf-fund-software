@@ -3,7 +3,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import br.fds.demo.Entidades.Fornecedor;
+import br.fds.demo.Dominio.Entidades.Fornecedor;
 
 
 public interface IRepFornecedoresJPA extends CrudRepository<Fornecedor,Long>{

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.fds.demo.Entidades.Fornecedor;
-import br.fds.demo.Entidades.Produto;
+import br.fds.demo.Dominio.Entidades.Fornecedor;
+import br.fds.demo.Dominio.Entidades.Produto;
 
 @Service
 public class ServicoEstoque {

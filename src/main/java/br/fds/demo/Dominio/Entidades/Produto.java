@@ -1,6 +1,4 @@
-package br.fds.demo.Entidades;
-
-
+package br.fds.demo.Dominio.Entidades;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

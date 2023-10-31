@@ -1,4 +1,4 @@
-package br.fds.demo.Entidades;
+package br.fds.demo.Dominio.Entidades;
 
 import java.util.HashSet;
 import java.util.Set;

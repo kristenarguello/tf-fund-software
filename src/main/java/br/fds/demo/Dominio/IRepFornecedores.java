@@ -2,7 +2,7 @@ package br.fds.demo.Dominio;
 
 import java.util.List;
 
-import br.fds.demo.Entidades.Fornecedor;
+import br.fds.demo.Dominio.Entidades.Fornecedor;
 
 
 public  interface IRepFornecedores {

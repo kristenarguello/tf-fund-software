@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.fds.demo.Dominio.ServicoEstoque;
-import br.fds.demo.Entidades.Produto;
+import br.fds.demo.Dominio.Entidades.Produto;
 
 @Component
 public class ProdutosDisponiveis_UC {

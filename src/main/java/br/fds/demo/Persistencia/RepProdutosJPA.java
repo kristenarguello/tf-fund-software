@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import br.fds.demo.Dominio.IRepProdutos;
-import br.fds.demo.Entidades.Produto;
+import br.fds.demo.Dominio.Entidades.Produto;
 
 @Repository
 @Primary

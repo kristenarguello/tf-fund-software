@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import br.fds.demo.Dominio.IRepFornecedores;
-import br.fds.demo.Entidades.Fornecedor;
+import br.fds.demo.Dominio.Entidades.Fornecedor;
 
 
 @Repository

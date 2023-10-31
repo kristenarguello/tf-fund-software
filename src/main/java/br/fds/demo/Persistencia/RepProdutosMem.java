@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import br.fds.demo.Dominio.IRepProdutos;
-import br.fds.demo.Entidades.Produto;
+import br.fds.demo.Dominio.Entidades.Produto;
 
 @Repository
 public class RepProdutosMem implements IRepProdutos {
