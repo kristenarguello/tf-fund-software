@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,6 +51,12 @@ public class MainController {
     @CrossOrigin("*")
     public Fornecedor getFornecedor(String nome){
         return buscaFornecedor_UC.run(nome);
+    }
+
+    @GetMapping("/getFornecedor2/{nome}")
+    @CrossOrigin("*")
+    public Fornecedor getFornecedor2(@PathVariable("nome") String fornecedor){
+        return buscaFornecedor_UC.run(fornecedor);
     }
     
     @GetMapping("/getFornecedores")

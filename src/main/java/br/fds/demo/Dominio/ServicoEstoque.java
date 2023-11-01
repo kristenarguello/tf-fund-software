@@ -21,7 +21,6 @@ public class ServicoEstoque {
     }
 
     public List<Produto> produtosDisponiveis(){
-        System.out.println("\n\n no service");
         return produtosRep.all();
     }
 
