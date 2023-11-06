@@ -49,7 +49,7 @@ public class Orcamento {
     public double getPrecoFinal() { 
         return getSomaPrecoItens() * (1-percentualDescontoAplicado) * (1-percentualImpostoAplicado); 
     }
-    public String getNomeCliente() { return pedido.getNomeCliente(); }
+    public Cliente getCliente() { return pedido.getCliente(); }
     public List<ItemPedido> getItens() { return pedido.getItens(); }
     public void aprovarOrcamento() { aprovado = true; }
     public boolean estaAprovado() { return aprovado; }
