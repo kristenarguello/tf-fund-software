@@ -8,9 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
-// anotacoes JPA / construtor protected em ItemPedido
-// para instanciar o Orcamento, passamos o codigo? inventamos um? ele nao eh gerado pelo BD?
-// toda vez eu preciso dar save? quando o JPA salva automaticamente?
 public class Orcamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,11 +40,14 @@ public class Orcamento {
     public double getSomaPrecoItens() { 
         return getItens()
                .stream()
-               .mapToDouble((ItemPedido ip) -> ip.getQuantidade()*ip.getPrecoUnitarioProduto())
+               .mapToDouble((ItemPedido ip) -> ip.getQuantidade()*ip.getProduto().getPrecoUnitario())
                .sum();
     }
     public double getPrecoFinal() { 
-        return getSomaPrecoItens() * (1-percentualDescontoAplicado) * (1-percentualImpostoAplicado); 
+        double precoBruto = getSomaPrecoItens();
+        double imposto    = percentualImpostoAplicado  * precoBruto;
+        double desconto   = percentualDescontoAplicado * precoBruto;
+        return precoBruto + imposto - desconto;
     }
     public Cliente getCliente() { return pedido.getCliente(); }
     public List<ItemPedido> getItens() { return pedido.getItens(); }

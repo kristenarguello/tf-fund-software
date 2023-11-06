@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Produto {
-    @Id 
+    @Id
     private long codigo;
     private String descricao;
     private double precoUnitario;

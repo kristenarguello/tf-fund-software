@@ -11,8 +11,6 @@ public class ItemPedido {
         this.produto = produto;
     }
 
-    public double getPrecoUnitarioProduto() { return 0.0; }
-    public String getDescricaoProduto() { return null; }
+    public Produto getProduto() { return produto; }
     public int getQuantidade() { return quantidade; }
-    public long getCodigoProduto() { return 0; }
 }
