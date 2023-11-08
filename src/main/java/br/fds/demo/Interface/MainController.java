@@ -40,9 +40,11 @@ public class MainController {
     public List<Produto> produtosDisponiveis(){
         var lista = produtosDisponiveis_UC.run();
         System.out.println("\n- - - - - - -");
+        /*
         for (Produto p : lista) {
             System.out.printf("%s-%s\n",p.getDescricao(), p.getFornecedor().getNome());
         }
+        */
         System.out.println("\n- - - - - - -");
         return lista;
     }

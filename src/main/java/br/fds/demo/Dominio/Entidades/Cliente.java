@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,36 +17,24 @@ import jakarta.persistence.OneToMany;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String nome;    
+    private long codigo;
+    private String nome;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "codigo")
+    private Set<Pedido> pedidos; 
     
-    public Cliente(long codigo, String nome, int qtdCompras) {
-        this.id = codigo;
+    public Cliente(String nome) {
         this.nome = nome;
         this.pedidos = new HashSet<>();
     }
 
     protected Cliente(){}
-    
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "cliente_id")
-    @JsonManagedReference
-    private Set<Pedido> pedidos; 
 
-    public Set<Pedido> getPedidos() {
-        return Collections.unmodifiableSet(pedidos);
-    }
-
-    public void setcodigo(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
+    public long getCodigo() { return this.codigo; }
+    public String getNome() { return this.nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public Set<Pedido> getPedidos() { return Collections.unmodifiableSet(this.pedidos); }
+    public boolean addPedido(Pedido p) { return this.pedidos.add(p); }
+    public boolean removePedido(Pedido p) { return this.pedidos.remove(p); }
 }

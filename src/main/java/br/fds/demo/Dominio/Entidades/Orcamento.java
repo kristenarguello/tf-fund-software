@@ -1,13 +1,14 @@
 package br.fds.demo.Dominio.Entidades;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
+@Entity
 public class Orcamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,11 +38,18 @@ public class Orcamento {
 
     protected Orcamento() {}
 
+    public long getCodigo() { return codigo; }
+    public Pedido getPedido() { return pedido; }
+    public LocalDateTime getData() { return data; }
+    public float getPercentualImpostoAplicado() { return percentualImpostoAplicado; }
+    public float getPercentualDescontoAplicado() { return percentualDescontoAplicado; }
+    public boolean estaAprovado() { return aprovado; }
+    public void aprovarOrcamento() { aprovado = true; }
     public double getSomaPrecoItens() { 
-        return getItens()
-               .stream()
-               .mapToDouble((ItemPedido ip) -> ip.getQuantidade()*ip.getProduto().getPrecoUnitario())
-               .sum();
+        return pedido.getItens()
+                     .stream()
+                     .mapToDouble((ItemPedido ip) -> ip.quantidade()*ip.produto().getPrecoUnitario())
+                     .sum();
     }
     public double getPrecoFinal() { 
         double precoBruto = getSomaPrecoItens();
@@ -49,10 +57,4 @@ public class Orcamento {
         double desconto   = percentualDescontoAplicado * precoBruto;
         return precoBruto + imposto - desconto;
     }
-    public Cliente getCliente() { return pedido.getCliente(); }
-    public List<ItemPedido> getItens() { return pedido.getItens(); }
-    public void aprovarOrcamento() { aprovado = true; }
-    public boolean estaAprovado() { return aprovado; }
-    public LocalDateTime getData() { return data; }
-    public long getCodigo() { return codigo; }
 }
