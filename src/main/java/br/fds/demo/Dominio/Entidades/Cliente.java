@@ -10,18 +10,18 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "clientes")
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long codigo;
+    private long id;
     private String nome;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "codigo")
     private Set<Pedido> pedidos; 
     
     public Cliente(String nome) {
@@ -31,7 +31,7 @@ public class Cliente {
 
     protected Cliente(){}
 
-    public long getCodigo() { return this.codigo; }
+    public long getId() { return this.id; }
     public String getNome() { return this.nome; }
     public void setNome(String nome) { this.nome = nome; }
     public Set<Pedido> getPedidos() { return Collections.unmodifiableSet(this.pedidos); }

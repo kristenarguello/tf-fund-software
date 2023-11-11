@@ -4,13 +4,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
 @Entity
+@Table(name = "produtos")
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long codigo;
+    private long id;
     private String descricao;
     private double precoUnitario;
     private int qtdMax;
@@ -27,7 +29,7 @@ public class Produto {
     
     protected Produto(){}
 
-    public long getCodigo() { return codigo; }
+    public long getId() { return id; }
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public double getPrecoUnitario() { return precoUnitario; }
@@ -41,7 +43,7 @@ public class Produto {
     
     @Override
     public String toString() {
-        return "Produto [codigo=" + codigo + ", descricao=" + descricao + ", precoUnitario=" + precoUnitario
+        return "Produto [id=" + id + ", descricao=" + descricao + ", precoUnitario=" + precoUnitario
                 + ", qtdMax=" + qtdMax + ", qtdMin=" + qtdMin + ", qtdAtual=" + qtdAtual + "]";
     }
 }

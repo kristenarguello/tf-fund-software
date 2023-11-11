@@ -12,25 +12,28 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 import java.util.Collections;
 import java.util.LinkedList;
 
 @Entity
+@Table(name = "pedidos")
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long codigo;
+    private long id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "codigo")
+    @JoinColumn(name = "pedido_id")
     private List<ItemPedido> itensPedido;
 
     @ManyToOne
-    @JoinColumn(name = "codigo")
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     @OneToOne
+    @JoinColumn(name = "orcamento_id")
     private Orcamento orcamento;
 
     public Pedido(Cliente cliente) throws IllegalArgumentException {
@@ -38,7 +41,7 @@ public class Pedido {
     }
 
     protected Pedido() {}
-    public long getCodigo() { return codigo; }
+    public long getId() { return id; }
     public List<ItemPedido> getItens() { return Collections.unmodifiableList(itensPedido); }
     public boolean removeItem(ItemPedido item) { return itensPedido.remove(item); }
     public boolean addItem(ItemPedido item) { return itensPedido.add(item); }

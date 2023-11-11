@@ -3,8 +3,6 @@ package br.fds.demo.Dominio.Entidades;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,14 +11,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "fornecedores")
 public class Fornecedor {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "fornecedor_id")
+    private Set<Produto> produtos;
 
     public Fornecedor(long id, String nome) {
         this.id = id;
@@ -29,11 +32,6 @@ public class Fornecedor {
     }
 
     protected Fornecedor(){}
-    
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "fornecedor_id")
-    @JsonManagedReference
-    private Set<Produto> produtos;
     
     public Set<Produto> getProdutos() {
         return produtos;

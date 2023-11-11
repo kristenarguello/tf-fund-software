@@ -6,15 +6,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "orcamentos")
 public class Orcamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigo;
 
     @OneToOne
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
     private LocalDateTime data;
@@ -48,7 +52,7 @@ public class Orcamento {
     public double getSomaPrecoItens() { 
         return pedido.getItens()
                      .stream()
-                     .mapToDouble((ItemPedido ip) -> ip.quantidade()*ip.produto().getPrecoUnitario())
+                     .mapToDouble((ItemPedido ip) -> ip.getQuantidade() * ip.getProduto().getPrecoUnitario())
                      .sum();
     }
     public double getPrecoFinal() { 
