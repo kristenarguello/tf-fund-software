@@ -1,16 +1,9 @@
 package br.fds.demo.Dominio.Entidades;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,18 +14,19 @@ public class Fornecedor {
     private long id;
     private String nome;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "fornecedor_id")
-    private Set<Produto> produtos;
+    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    //@JoinColumn(name = "fornecedor_id")
+    //private Set<Produto> produtos;
 
     public Fornecedor(long id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.produtos = new HashSet<>();
+        //this.produtos = new HashSet<>();
     }
 
     protected Fornecedor(){}
     
+    /*
     public Set<Produto> getProdutos() {
         return produtos;
     }
@@ -40,6 +34,7 @@ public class Fornecedor {
     public void getProdutos(Set<Produto> prods) {
         this.produtos = prods;
     }
+    */
     
     public long getCodigo() {
         return id;

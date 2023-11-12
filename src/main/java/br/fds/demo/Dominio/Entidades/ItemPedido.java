@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,7 +19,7 @@ public class ItemPedido {
 
     private int quantidade;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
@@ -33,6 +32,8 @@ public class ItemPedido {
         this.produto = produto;
         this.pedido = pedido;
     }
+
+    protected ItemPedido() {}
 
     public long getId() { return id; }
     public int getQuantidade() { return quantidade; }
