@@ -15,7 +15,7 @@ public class RepProdutosJPA implements IRepProdutos {
     IRepProdutosJPA repJPA;
 
     @Autowired
-    public RepProdutosJPA(IRepProdutosJPA repJPA){
+    public RepProdutosJPA(IRepProdutosJPA repJPA) {
         this.repJPA = repJPA;
     }
 
@@ -28,5 +28,5 @@ public class RepProdutosJPA implements IRepProdutos {
     public List<Produto> all() {
         return repJPA.findAll();
     }
-    
+
 }
