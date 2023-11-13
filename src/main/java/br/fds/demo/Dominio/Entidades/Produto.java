@@ -1,9 +1,13 @@
 package br.fds.demo.Dominio.Entidades;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 
@@ -15,16 +19,15 @@ public class Produto {
     private long id;
     private String descricao;
     private double precoUnitario;
-    private int qtdMax;
-    private int qtdMin;
-    private int qtdAtual;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "estoque_id")
+    private Estoque estoque;
     
-    public Produto(String descricao, double precoUnitario, int qtdMax, int qtdMin,int qtdAtual) {
+    public Produto(String descricao, double precoUnitario, Estoque estoque) {
         this.descricao = descricao;
         this.precoUnitario = precoUnitario;
-        this.qtdMax = qtdMax;
-        this.qtdMin = qtdMin;
-        this.qtdAtual = qtdAtual;
+        this.estoque = estoque;
     }
     
     protected Produto(){}
@@ -34,16 +37,5 @@ public class Produto {
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public double getPrecoUnitario() { return precoUnitario; }
     public void setPrecoUnitario(double precoUnitario) { this.precoUnitario = precoUnitario; }
-    public int getQtdMax() { return qtdMax; }
-    public void setQtdMax(int qtdMax) { this.qtdMax = qtdMax; }
-    public int getQtdMin() { return qtdMin; }
-    public void setQtdMin(int qtdMin) { this.qtdMax = qtdMin; }
-    public int getQtdAtual() { return qtdAtual; }
-    public void setQtdAtual(int qtdAtual) { this.qtdAtual = qtdAtual; }
-    
-    @Override
-    public String toString() {
-        return "Produto [id=" + id + ", descricao=" + descricao + ", precoUnitario=" + precoUnitario
-                + ", qtdMax=" + qtdMax + ", qtdMin=" + qtdMin + ", qtdAtual=" + qtdAtual + "]";
-    }
+    public Estoque getEstoque() { return this.estoque; }
 }

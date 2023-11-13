@@ -37,13 +37,13 @@ public class ServicoOrcamento {
 
         // validar se ha produtos o suficiente
         for (ItemPedido ip : orcamento.getPedido().getItens()) {
-            int qtdAtualProduto = ip.getProduto().getQtdAtual();
+            int qtdAtualProduto = ip.getProduto().getEstoque().getQtdAtual();
             if (qtdAtualProduto < ip.getQuantidade()) {
                 throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,
                         String.format("No momento, o produto de descrição '%s' não possui unidades suficientes",
                                 ip.getProduto().getDescricao()));
             }
-            ip.getProduto().setQtdAtual(qtdAtualProduto - ip.getQuantidade());
+            ip.getProduto().getEstoque().setQtdAtual(qtdAtualProduto - ip.getQuantidade());
         }
 
         // tudo ocorreu corretamente. marcar orcamento como aprovado e salvar no banco
