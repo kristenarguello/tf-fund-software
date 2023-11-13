@@ -1,7 +1,10 @@
-INSERT INTO produtos(preco_unitario, qtd_atual, qtd_max, qtd_min, descricao)
-    VALUES(1000.0, 25, 30, 5, 'Geladeira frost-free 220V');
-INSERT INTO produtos(preco_unitario, qtd_atual, qtd_max, qtd_min, descricao)
-    VALUES(100.0, 65, 100, 30, 'Secador de cabelo 110V');
+INSERT INTO estoque(qtd_atual, qtd_max, qtd_min) VALUES(25, 30, 5);
+INSERT INTO estoque(qtd_atual, qtd_max, qtd_min) VALUES(65, 100, 30);
+
+INSERT INTO produtos(preco_unitario, descricao, estoque_id)
+    VALUES(1000.0, 'Geladeira frost-free 220V', 1);
+INSERT INTO produtos(preco_unitario, descricao, estoque_id)
+    VALUES(100.0, 'Secador de cabelo 110V', 2);
 
 INSERT INTO clientes(nome) VALUES ('Thanos');
 INSERT INTO clientes(nome) VALUES ('Blip');
