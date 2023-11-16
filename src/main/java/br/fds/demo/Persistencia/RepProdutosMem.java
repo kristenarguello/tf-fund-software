@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import br.fds.demo.Aplicacao.DTOs.ProdutoDTO;
 import br.fds.demo.Dominio.IRepProdutos;
 import br.fds.demo.Dominio.Entidades.Produto;
 
@@ -27,6 +28,11 @@ public class RepProdutosMem implements IRepProdutos {
     @Override
     public List<Produto> all() {
         return produtos;
+    }
+
+    @Override
+    public List<ProdutoDTO> threeMostExpensive() {
+        throw new UnsupportedOperationException("Unimplemented method 'threeMostExpensive'");
     }
     
 }
