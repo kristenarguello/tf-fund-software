@@ -34,6 +34,22 @@ public class RepClientesJPA implements IRepClientes{
                         .collect(java.util.stream.Collectors.toList());
     }
 
+    @Override
+    public List<Cliente> threeClientsMostNotApprovedBudget() {
+        return ((Collection<Cliente>) repJPA.findAll())
+                    .stream()
+                    .flatMap(c -> c.getPedidos()
+                                  .stream()
+                                  .filter(p -> !p.getOrcamento().estaAprovado()))
+                                  .map(p -> p.getCliente())
+                                  .collect(java.util.stream.Collectors.toList())
+                    .stream()
+                    .sorted((c1, c2) -> c2.getPedidos().size() - c1.getPedidos().size())
+                    .limit(3)
+                    .collect(java.util.stream.Collectors.toList());
+                    //IT IS WRONG!!!!!! logic still not working
+    }
+
   
 
     

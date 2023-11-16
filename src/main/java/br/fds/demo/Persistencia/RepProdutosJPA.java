@@ -30,7 +30,6 @@ public class RepProdutosJPA implements IRepProdutos {
         return repJPA.findAll();
     }
 
-    @Override
     public List<ProdutoDTO> threeMostExpensive() {
         return repJPA.findAll()
                      .stream()

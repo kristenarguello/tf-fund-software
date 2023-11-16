@@ -7,4 +7,6 @@ import br.fds.demo.Dominio.Entidades.Cliente;
 public interface IRepClientes {
     List<Cliente> all();
     List<Cliente> topThreeClientes();
+    List<Cliente> threeClientsMostNotApprovedBudget();
+
 }

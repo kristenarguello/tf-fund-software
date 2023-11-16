@@ -12,9 +12,8 @@ import br.fds.demo.Dominio.IRepProdutos;
 public class RelatorioProdutosMaisCaros_UC {
     @Autowired
     private IRepProdutos produtosRep;
-    
+
     public List<ProdutoDTO> run() {
         return produtosRep.threeMostExpensive();
     }
 }
-
