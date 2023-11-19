@@ -21,8 +21,8 @@ public class Cliente {
     private long id;
     private String nome;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Pedido> pedidos; 
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Pedido> pedidos;
     
     public Cliente(String nome) {
         this.nome = nome;

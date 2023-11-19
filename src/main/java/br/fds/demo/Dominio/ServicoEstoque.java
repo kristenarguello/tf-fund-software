@@ -10,18 +10,18 @@ import br.fds.demo.Dominio.Entidades.Produto;
 
 @Service
 public class ServicoEstoque {
-    private IRepProdutos produtosRep;
+    //private IRepProdutos produtosRep;
     private IRepFornecedores fornecedoresRep;
 
     @Autowired
     public ServicoEstoque(IRepProdutos produtosRep, 
                           IRepFornecedores fornecedoresRep){
-        this.produtosRep = produtosRep;
+        //this.produtosRep = produtosRep;
         this.fornecedoresRep = fornecedoresRep;
     }
 
     public List<Produto> produtosDisponiveis(){
-        return produtosRep.all();
+        return null;
     }
 
    public List<Fornecedor> getFornecedores(){

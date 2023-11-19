@@ -2,7 +2,9 @@ package br.fds.demo.Dominio.Entidades;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,9 +17,9 @@ import jakarta.persistence.Table;
 public class Orcamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long codigo;
+    private long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
@@ -42,7 +44,7 @@ public class Orcamento {
 
     protected Orcamento() {}
 
-    public long getCodigo() { return codigo; }
+    public long getId() { return id; }
     public Pedido getPedido() { return pedido; }
     public LocalDateTime getData() { return data; }
     public float getPercentualImpostoAplicado() { return percentualImpostoAplicado; }
