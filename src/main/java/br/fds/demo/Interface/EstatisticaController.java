@@ -12,6 +12,7 @@ import br.fds.demo.Aplicacao.RelatorioClientesMaisCompras_UC;
 import br.fds.demo.Aplicacao.RelatorioClientesOrcamentosNaoEfetivados_UC;
 import br.fds.demo.Aplicacao.RelatorioProdutosMaisCaros_UC;
 import br.fds.demo.Aplicacao.DTOs.ClienteOrcamentosDTO;
+import br.fds.demo.Aplicacao.DTOs.ClienteDTO;
 import br.fds.demo.Aplicacao.DTOs.ProdutoDTO;
 
 @RestController
@@ -25,6 +26,12 @@ public class EstatisticaController {
 
     @Autowired
     private RelatorioClientesOrcamentosNaoEfetivados_UC relatorioClientesOrcamentosNaoEfetivados;
+
+    @GetMapping("/tres-clientes-mais-compras")
+    @CrossOrigin("*")
+    public List<ClienteDTO> clientesMaisCompras() {
+        return relatorioClientesMaisComprasUc.run();
+    }
 
     @GetMapping("/produtos-mais-caros")
     @CrossOrigin("*")

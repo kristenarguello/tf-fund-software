@@ -5,13 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.fds.demo.Aplicacao.DTOs.ProdutoDTO;
 import br.fds.demo.Dominio.Entidades.Fornecedor;
-import br.fds.demo.Dominio.Entidades.Produto;
 
 @Service
 public class ServicoEstoque {
     //private IRepProdutos produtosRep;
     private IRepFornecedores fornecedoresRep;
+
 
     @Autowired
     public ServicoEstoque(IRepProdutos produtosRep, 
@@ -20,9 +21,6 @@ public class ServicoEstoque {
         this.fornecedoresRep = fornecedoresRep;
     }
 
-    public List<Produto> produtosDisponiveis(){
-        return null;
-    }
 
    public List<Fornecedor> getFornecedores(){
         return fornecedoresRep.all();
