@@ -8,6 +8,6 @@ import br.fds.demo.Dominio.Entidades.Cliente;
 
 
 public interface IRepClientesJPA extends CrudRepository<Cliente,Long>{
-    List<Cliente> all();
-    List <Cliente> topThreeClientes();
+    List<Cliente> findAll();
+    // List <Cliente> topThreeClientes();
 }
