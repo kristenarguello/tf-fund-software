@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.fds.demo.Aplicacao.DTOs.ProdutoDTO;
 import br.fds.demo.Dominio.Entidades.Fornecedor;
 
 @Service

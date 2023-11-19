@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import br.fds.demo.Aplicacao.DTOs.ClienteOrcamentosDTO;
 import br.fds.demo.Dominio.IRepClientes;
+import java.util.Comparator;
 
 @Component
 public class RelatorioClientesOrcamentosNaoEfetivados_UC {
@@ -18,6 +19,7 @@ public class RelatorioClientesOrcamentosNaoEfetivados_UC {
             .entrySet()
             .stream()
             .map(c -> new ClienteOrcamentosDTO(c.getKey().getNome(), c.getValue()))
+            .sorted(Comparator.comparingLong(ClienteOrcamentosDTO::getQtdOrcamentosNaoAprovados).reversed())
             .collect(java.util.stream.Collectors.toList());
     }
 

@@ -1,6 +1,7 @@
 package br.fds.demo.Persistencia;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -33,10 +34,11 @@ public class RepProdutosJPA implements IRepProdutos {
     public List<ProdutoDTO> threeMostExpensive() {
         return repJPA.findAll()
                      .stream()
+                     .filter(p -> p.getQtdAtual() > 0)
                      .map(p -> new ProdutoDTO(p.getId(), p.getDescricao(), p.getPrecoUnitario(), p.getQtdAtual()))
                      .sorted((p1, p2) -> Double.compare(p2.getPrecoUnitario(), p1.getPrecoUnitario()))
                      .limit(3)
-                     .collect(java.util.stream.Collectors.toList());
+                     .collect(Collectors.toList());
     }
 
     @Override
@@ -45,6 +47,6 @@ public class RepProdutosJPA implements IRepProdutos {
                      .stream()
                      .filter(p -> p.getQtdAtual() > 0)
                      .map(p -> new ProdutoDTO(p.getId(), p.getDescricao(), p.getPrecoUnitario(), p.getQtdAtual()))
-                     .collect(java.util.stream.Collectors.toList());
+                     .collect(Collectors.toList());
     }
 }
