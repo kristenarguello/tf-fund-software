@@ -9,7 +9,7 @@ import br.fds.demo.Dominio.IRepClientes;
 import br.fds.demo.Dominio.Entidades.Cliente;
 
 @Component
-public class RelatorioClientesOrcamentosNaoEfetivados {
+public class RelatorioClientesOrcamentosNaoEfetivados_UC {
     @Autowired
     private IRepClientes repClientes;
     
