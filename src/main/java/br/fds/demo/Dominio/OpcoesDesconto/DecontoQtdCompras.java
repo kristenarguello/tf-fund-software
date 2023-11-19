@@ -14,8 +14,12 @@ public class DecontoQtdCompras implements IDescontoStrategy {
 
         int comprasUltimos6Meses = 0;
         for (int i=quantidade - 1; i>=0; i--) {
-            if (pedidosCliente[i].getOrcamento().getData().isBefore(LocalDateTime.now().minusMonths(6))) {
-                comprasUltimos6Meses++;
+            try{
+                if (pedidosCliente[i].getOrcamento().getData().isBefore(LocalDateTime.now().minusMonths(6)) && pedidosCliente[i].getOrcamento().estaAprovado()) {
+                    comprasUltimos6Meses++;
+                }
+            } catch (NullPointerException e) {
+                System.err.println(e.getMessage());
             }
             if (comprasUltimos6Meses == 11) {
                 return 0.25f;

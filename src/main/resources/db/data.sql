@@ -47,5 +47,5 @@ INSERT INTO orcamentos(aprovado, percentual_desconto_aplicado, percentual_impost
     VALUES (FALSE, 0.05, 0.1, TIMESTAMP '2023-10-12 12:00:00', 5);
 INSERT INTO orcamentos(aprovado, percentual_desconto_aplicado, percentual_imposto_aplicado, data, pedido_id)
     VALUES (FALSE, 0.05, 0.1, TIMESTAMP '2023-10-12 12:00:00', 6);
-INSERT INTO orcamentos(aprovado, percentual_desconto_aplicado, percentual_imposto_aplicado, data, pedido_id)
-    VALUES (FALSE, 0.05, 0.1, TIMESTAMP '2023-10-12 12:00:00', 7);
+--INSERT INTO orcamentos(aprovado, percentual_desconto_aplicado, percentual_imposto_aplicado, data, pedido_id)
+--    VALUES (FALSE, 0.05, 0.1, TIMESTAMP '2023-10-12 12:00:00', 7);
