@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -33,7 +34,7 @@ public class RepClientesJPA implements IRepClientes{
                 .stream()
                 .sorted((c1, c2) -> c2.getPedidos().size() - c1.getPedidos().size())
                 .limit(3)
-                .collect(java.util.stream.Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -45,7 +46,10 @@ public class RepClientesJPA implements IRepClientes{
                 .forEach(c -> {
                     long pedidos_nao_aprovados = c.getPedidos()
                                     .stream()
-                                    .filter(p -> !p.getOrcamento().estaAprovado())
+                                    .filter(p -> {
+                                        if (p.getOrcamento() == null) return false;
+                                        return !p.getOrcamento().estaAprovado();
+                                    })
                                     .count();
                     aux.put(c, pedidos_nao_aprovados);
                 }
@@ -54,9 +58,10 @@ public class RepClientesJPA implements IRepClientes{
         // return the top 3 ones
         return aux.entrySet()
             .stream()
-            .sorted(Map.Entry.comparingByValue())
+            .sorted(Map.Entry.<Cliente, Long>comparingByValue().reversed())
+            .filter(e -> e.getValue() > 0)
             .limit(3)
-            .collect(java.util.stream.Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
     }
-  
+
 }
