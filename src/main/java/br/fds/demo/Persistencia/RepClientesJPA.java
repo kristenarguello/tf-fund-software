@@ -2,13 +2,14 @@ package br.fds.demo.Persistencia;
 
 import java.util.Collection;
 import java.util.HashMap;
-    import java.util.List;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import br.fds.demo.Aplicacao.DTOs.ClienteOrcamentosDTO;
 import br.fds.demo.Dominio.IRepClientes;
 import br.fds.demo.Dominio.Entidades.Cliente;
 
@@ -29,15 +30,15 @@ public class RepClientesJPA implements IRepClientes{
 
     @Override
     public List<Cliente> topThreeClientes(){
-        return ((Collection<Cliente>) repJPA.findAll())
-                        .stream()
-                        .sorted((c1, c2) -> c2.getPedidos().size() - c1.getPedidos().size())
-                        .limit(3)
-                        .collect(java.util.stream.Collectors.toList());
+        return all()
+                .stream()
+                .sorted((c1, c2) -> c2.getPedidos().size() - c1.getPedidos().size())
+                .limit(3)
+                .collect(java.util.stream.Collectors.toList());
     }
 
     @Override
-    public List<Cliente> threeClientsMostNotApprovedBudget() {
+    public List<ClienteOrcamentosDTO> threeClientsMostNotApprovedBudget() {
         Map<Cliente, Long> aux = new HashMap<>();
         // get amount of not approved budgets for each client
         ((Collection<Cliente>) repJPA.findAll())
@@ -49,14 +50,14 @@ public class RepClientesJPA implements IRepClientes{
                                     .count();
                     aux.put(c, pedidos_nao_aprovados);
                 }
-        );                        
-            
+        );       
+
         // return the top 3 ones
         return aux.entrySet()
             .stream()
             .sorted(Map.Entry.comparingByValue())
             .limit(3)
-            .map(Map.Entry::getKey)
+            .map(cv -> new ClienteOrcamentosDTO(cv.getKey().getNome(), cv.getValue()))
             .collect(java.util.stream.Collectors.toList());
     }
   
