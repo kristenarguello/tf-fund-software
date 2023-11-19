@@ -10,6 +10,7 @@ public interface IRepProdutos {
 
     List<Produto> all();
     List<ProdutoDTO> threeMostExpensive(); 
+    List<ProdutoDTO> allAvailable();
 
     // TODO: get by id
 }

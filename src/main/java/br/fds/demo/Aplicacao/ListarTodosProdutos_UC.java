@@ -14,11 +14,7 @@ public class ListarTodosProdutos_UC {
     private RepProdutosJPA repProdutosJPA;
 
     public List<ProdutoDTO> run(){
-        return repProdutosJPA.all()
-            .stream()
-            .filter(p -> p.getQtdAtual() > 0)
-            .map(p -> new ProdutoDTO(p.getId(), p.getDescricao(), p.getPrecoUnitario(), p.getQtdAtual()))
-            .collect(java.util.stream.Collectors.toList());
+        return repProdutosJPA.allAvailable();
     }
 }
 

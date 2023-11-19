@@ -29,7 +29,7 @@ public class RepProdutosJPA implements IRepProdutos {
     public List<Produto> all() {
         return repJPA.findAll();
     }
-
+    @Override
     public List<ProdutoDTO> threeMostExpensive() {
         return repJPA.findAll()
                      .stream()
@@ -39,4 +39,12 @@ public class RepProdutosJPA implements IRepProdutos {
                      .collect(java.util.stream.Collectors.toList());
     }
 
+    @Override
+    public List<ProdutoDTO> allAvailable() {
+        return repJPA.findAll()
+                     .stream()
+                     .filter(p -> p.getQtdAtual() > 0)
+                     .map(p -> new ProdutoDTO(p.getId(), p.getDescricao(), p.getPrecoUnitario(), p.getQtdAtual()))
+                     .collect(java.util.stream.Collectors.toList());
+    }
 }

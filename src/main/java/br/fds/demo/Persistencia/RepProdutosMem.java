@@ -34,5 +34,10 @@ public class RepProdutosMem implements IRepProdutos {
     public List<ProdutoDTO> threeMostExpensive() {
         throw new UnsupportedOperationException("Unimplemented method 'threeMostExpensive'");
     }
+
+    @Override
+    public List<ProdutoDTO> allAvailable() {
+        throw new UnsupportedOperationException("Unimplemented method 'allDisp'");
+    }
     
 }
