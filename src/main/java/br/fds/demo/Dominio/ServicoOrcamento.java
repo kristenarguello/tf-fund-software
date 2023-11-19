@@ -20,6 +20,9 @@ public class ServicoOrcamento {
     @Autowired
     private IRepOrcamentos repOrcamentos;
 
+    @Autowired 
+    private IRepPedidos repPedidos;
+
     @Autowired
     private FabricaDeDescontos fabricaDeDescontos;
 
@@ -58,9 +61,13 @@ public class ServicoOrcamento {
                 : DIAS_VALIDADE_ALTA_PROCURA;
     }
 
-    public void gerarOrcamento(Pedido Pedido) {
-        float percentualDesconto = fabricaDeDescontos.getDesconto(Pedido);
-        Orcamento orcamento = new Orcamento(Pedido, 0.10f, percentualDesconto);
+    public Orcamento gerarOrcamento(long idPedido) {
+        Pedido pedido = repPedidos.buscarPorId(idPedido);
+        if (pedido == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O pedido não pôde ser encontrado");
+        float percentualDesconto = fabricaDeDescontos.getDesconto(pedido);
+        Orcamento orcamento = new Orcamento(pedido, 0.10f, percentualDesconto);
         repOrcamentos.salvar(orcamento);
+        return orcamento;
     }
 }
