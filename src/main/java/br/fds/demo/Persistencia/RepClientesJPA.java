@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import br.fds.demo.Aplicacao.DTOs.ClienteDTO;
 import br.fds.demo.Aplicacao.DTOs.ClienteOrcamentosDTO;
 import br.fds.demo.Dominio.IRepClientes;
 import br.fds.demo.Dominio.Entidades.Cliente;
@@ -29,11 +30,12 @@ public class RepClientesJPA implements IRepClientes{
     }
 
     @Override
-    public List<Cliente> topThreeClientes(){
+    public List<ClienteDTO> topThreeClientes(){
         return all()
                 .stream()
                 .sorted((c1, c2) -> c2.getPedidos().size() - c1.getPedidos().size())
                 .limit(3)
+                .map(c -> new ClienteDTO(c.getNome(), c.getPedidos().size()))
                 .collect(java.util.stream.Collectors.toList());
     }
 

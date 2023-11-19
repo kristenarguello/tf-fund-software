@@ -1,5 +1,8 @@
 package br.fds.demo.Dominio.Entidades;
 
+import java.util.Collection;
+
+import br.fds.demo.Aplicacao.DTOs.ProdutoDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -48,5 +51,9 @@ public class Fornecedor {
     @Override
     public String toString() {
         return "Produto [codigo=" + id + ", nome=" + nome + "]";
+    }
+
+    public Collection<ProdutoDTO> getProdutos() {
+        return null;
     }
 }
