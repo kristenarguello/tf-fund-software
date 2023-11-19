@@ -14,7 +14,11 @@ public class RelatorioClientesOrcamentosNaoEfetivados_UC {
     private IRepClientes repClientes;
     
     public List<ClienteOrcamentosDTO> run() {
-        return repClientes.threeClientsMostNotApprovedBudget();
+        return repClientes.threeClientsMostNotApprovedBudget()
+            .entrySet()
+            .stream()
+            .map(c -> new ClienteOrcamentosDTO(c.getKey().getNome(), c.getValue()))
+            .collect(java.util.stream.Collectors.toList());
     }
 
 }

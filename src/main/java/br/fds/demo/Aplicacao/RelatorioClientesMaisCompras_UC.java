@@ -1,6 +1,7 @@
 package br.fds.demo.Aplicacao;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,10 @@ public class RelatorioClientesMaisCompras_UC {
     private IRepClientes repClientes;
     
     public List<ClienteDTO> run() {
-        return repClientes.topThreeClientes();
+        return repClientes.topThreeClientes()
+                .stream()
+                .map(c -> new ClienteDTO(c.getNome(), c.getPedidos().size()))
+                .collect(Collectors.toList());
     }
 
 }

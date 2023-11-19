@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
-import br.fds.demo.Aplicacao.DTOs.ClienteDTO;
-import br.fds.demo.Aplicacao.DTOs.ClienteOrcamentosDTO;
 import br.fds.demo.Dominio.IRepClientes;
 import br.fds.demo.Dominio.Entidades.Cliente;
 
@@ -30,17 +28,16 @@ public class RepClientesJPA implements IRepClientes{
     }
 
     @Override
-    public List<ClienteDTO> topThreeClientes(){
+    public List<Cliente> topThreeClientes(){
         return all()
                 .stream()
                 .sorted((c1, c2) -> c2.getPedidos().size() - c1.getPedidos().size())
                 .limit(3)
-                .map(c -> new ClienteDTO(c.getNome(), c.getPedidos().size()))
                 .collect(java.util.stream.Collectors.toList());
     }
 
     @Override
-    public List<ClienteOrcamentosDTO> threeClientsMostNotApprovedBudget() {
+    public HashMap<Cliente,Long> threeClientsMostNotApprovedBudget() {
         Map<Cliente, Long> aux = new HashMap<>();
         // get amount of not approved budgets for each client
         ((Collection<Cliente>) repJPA.findAll())
@@ -59,8 +56,7 @@ public class RepClientesJPA implements IRepClientes{
             .stream()
             .sorted(Map.Entry.comparingByValue())
             .limit(3)
-            .map(cv -> new ClienteOrcamentosDTO(cv.getKey().getNome(), cv.getValue()))
-            .collect(java.util.stream.Collectors.toList());
+            .collect(java.util.stream.Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
     }
   
 }
