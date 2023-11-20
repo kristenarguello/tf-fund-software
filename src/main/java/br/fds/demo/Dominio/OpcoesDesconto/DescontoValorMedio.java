@@ -9,20 +9,22 @@ public class DescontoValorMedio implements IDescontoStrategy {
     public float calcularDesconto(Pedido pedido) {
         Cliente cli = pedido.getCliente();
         int tam = cli.getPedidos().size();
-
-        if (tam < 3) {
+        System.out.println("AAAAA");
+        if (tam < 4) { // pedido atual já está na contagem
             return 0;
         }
+        System.out.println("TAM: " + tam);
 
         Pedido[] aux = cli.getPedidos().toArray(new Pedido[tam]);
         int total = 0;
-        for (int i=1; i<4; i++) {
+        for (int i=1; i<4; i++) { //comeca do segundo pois pedido atual é o primeiro
             for (Orcamento orcamento : aux[tam - i].getOrcamentos()) {
                 if (orcamento.estaAprovado()) {
                     total += orcamento.getPrecoFinal();
                 }
             }
         }
+        System.out.println("TOTAL: " + total);
 
         int media = total / 3;
         if (media > 10000) {

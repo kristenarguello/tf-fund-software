@@ -19,7 +19,7 @@ public class DecontoQtdCompras implements IDescontoStrategy {
                 continue;
         
             for (Orcamento orcamento : pedidosCliente[i].getOrcamentos()) {
-                if (orcamento.getData().isBefore(LocalDateTime.now().minusMonths(6)) && orcamento.estaAprovado()) {
+                if ((orcamento.getData().isAfter(LocalDateTime.now().minusMonths(6)) && orcamento.getData().isBefore(LocalDateTime.now())) && orcamento.estaAprovado()) {
                     comprasUltimos6Meses++;
                 }
             }
