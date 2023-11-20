@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +45,17 @@ public class RepClientesJPA implements IRepClientes{
         ((Collection<Cliente>) repJPA.findAll())
                 .stream()
                 .forEach(c -> {
-                    long pedidos_nao_aprovados = c.getPedidos()
-                                    .stream()
-                                    .filter(p -> {
-                                        if (p.getOrcamento() == null) return false;
-                                        return !p.getOrcamento().estaAprovado();
-                                    })
-                                    .count();
-                    aux.put(c, pedidos_nao_aprovados);
+                    AtomicLong pedidos_nao_aprovados = new AtomicLong(0);
+                    c.getPedidos()
+                        .forEach(p -> {
+                            if (p.getOrcamentos().size() == 0) return;
+                            pedidos_nao_aprovados.addAndGet(p.getOrcamentos()
+                                .stream()
+                                .filter(o -> !o.estaAprovado())
+                                .count());
+                            // return !p.getOrcamentos().estaAprovado();
+                        });
+                    aux.put(c, pedidos_nao_aprovados.get());
                 }
         );       
 

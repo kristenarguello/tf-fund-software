@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import java.util.Collections;
@@ -31,8 +30,8 @@ public class Pedido {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Orcamento orcamento;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Orcamento> orcamentos;
 
     public Pedido(Cliente cliente) throws IllegalArgumentException {
         this.itensPedido = new LinkedList<>();
@@ -44,6 +43,6 @@ public class Pedido {
     public boolean removeItem(ItemPedido item) { return itensPedido.remove(item); }
     public boolean addItem(ItemPedido item) { return itensPedido.add(item); }
     public Cliente getCliente() { return cliente; }
-    public void setOrcamento(Orcamento orcamento) { this.orcamento = orcamento; }
-    public Orcamento getOrcamento() { return orcamento; }
+    public void addOrcamento(Orcamento orcamento) {  orcamentos.add(orcamento); }
+    public List<Orcamento> getOrcamentos() { return orcamentos; }
 }

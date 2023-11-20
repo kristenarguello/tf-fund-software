@@ -1,6 +1,7 @@
 package br.fds.demo.Dominio.OpcoesDesconto;
 
 import br.fds.demo.Dominio.Entidades.Cliente;
+import br.fds.demo.Dominio.Entidades.Orcamento;
 import br.fds.demo.Dominio.Entidades.Pedido;
 
 public class DescontoValorMedio implements IDescontoStrategy {
@@ -16,7 +17,11 @@ public class DescontoValorMedio implements IDescontoStrategy {
         Pedido[] aux = cli.getPedidos().toArray(new Pedido[tam]);
         int total = 0;
         for (int i=1; i<4; i++) {
-            total += aux[tam - i].getOrcamento().getPrecoFinal();
+            for (Orcamento orcamento : aux[tam - i].getOrcamentos()) {
+                if (orcamento.estaAprovado()) {
+                    total += orcamento.getPrecoFinal();
+                }
+            }
         }
 
         int media = total / 3;
