@@ -13,4 +13,6 @@ public interface IRepProdutos {
 
     List<Produto> allAvailable();
 
+    Produto buscarPorId(long id);
+
 }

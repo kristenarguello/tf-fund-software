@@ -26,8 +26,10 @@ public class ServicoPedidos {
 
         Pedido pedido = new Pedido(cliente);
         for (ItemPedido item : itens) {
+            item.setPedido(pedido);
             pedido.addItem(item);
         }
+
         repPedidos.salvar(pedido);
         return pedido;
     }

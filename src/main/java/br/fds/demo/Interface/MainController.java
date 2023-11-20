@@ -27,7 +27,7 @@ public class MainController {
     @Autowired
     private ListarTodosProdutos_UC listarTodosProdutosUc;
 
-    @Autowired 
+    @Autowired
     private SolicitarOrcamentoUC solicitarOrcamentoUC;
 
     @PatchMapping("/efetivar-orcamento")
@@ -37,8 +37,7 @@ public class MainController {
         try {
             efetivarOrcamentoUc.run(idOrcamento);
             return ResponseEntity.ok("Orçamento efetivado com sucesso!");
-        }
-        catch (ResponseStatusException ex) {
+        } catch (ResponseStatusException ex) {
             return ResponseEntity.status(ex.getStatusCode()).body(ex.getMessage());
         }
     }
@@ -46,9 +45,8 @@ public class MainController {
     @PostMapping("/solicitar-orcamento")
     @CrossOrigin("*")
     public OrcamentoDTO solicitarOrcamento(long idPedido) {
-            return solicitarOrcamentoUC.run(idPedido);
+        return solicitarOrcamentoUC.run(idPedido);
     }
-
 
     @GetMapping("/listar-todos-produtos")
     @CrossOrigin("*")

@@ -12,15 +12,15 @@ import br.fds.demo.Dominio.Entidades.Produto;
 public class RepProdutosMem implements IRepProdutos {
     private List<Produto> produtos;
 
-    public RepProdutosMem(){
+    public RepProdutosMem() {
         produtos = new LinkedList<>();
-//        produtos.add(new Produto(10,"banana",3.5));
-//        produtos.add(new Produto(20,"maca",5.0));
+        // produtos.add(new Produto(10,"banana",3.5));
+        // produtos.add(new Produto(20,"maca",5.0));
     }
 
     @Override
     public void save(Produto p) {
-    
+
         throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 
@@ -38,5 +38,10 @@ public class RepProdutosMem implements IRepProdutos {
     public List<Produto> allAvailable() {
         throw new UnsupportedOperationException("Unimplemented method 'allDisp'");
     }
-    
+
+    @Override
+    public Produto buscarPorId(long id) {
+        throw new UnsupportedOperationException("Unimplemented method 'buscarPorId'");
+    }
+
 }

@@ -29,23 +29,31 @@ public class RepProdutosJPA implements IRepProdutos {
     public List<Produto> all() {
         return repJPA.findAll();
     }
+
     @Override
     public List<Produto> threeMostExpensive() {
         return repJPA.findAll()
-                     .stream()
-                     .filter(p -> p.getQtdAtual() > 0)
-                    //  .map(p -> new ProdutoDTO(p.getId(), p.getDescricao(), p.getPrecoUnitario(), p.getQtdAtual()))
-                     .sorted((p1, p2) -> Double.compare(p2.getPrecoUnitario(), p1.getPrecoUnitario()))
-                     .limit(3)
-                     .collect(Collectors.toList());
+                .stream()
+                .filter(p -> p.getQtdAtual() > 0)
+                // .map(p -> new ProdutoDTO(p.getId(), p.getDescricao(), p.getPrecoUnitario(),
+                // p.getQtdAtual()))
+                .sorted((p1, p2) -> Double.compare(p2.getPrecoUnitario(), p1.getPrecoUnitario()))
+                .limit(3)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Produto> allAvailable() {
         return repJPA.findAll()
-                     .stream()
-                     .filter(p -> p.getQtdAtual() > 0)
-                    //  .map(p -> new ProdutoDTO(p.getId(), p.getDescricao(), p.getPrecoUnitario(), p.getQtdAtual()))
-                     .collect(Collectors.toList());
+                .stream()
+                .filter(p -> p.getQtdAtual() > 0)
+                // .map(p -> new ProdutoDTO(p.getId(), p.getDescricao(), p.getPrecoUnitario(),
+                // p.getQtdAtual()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Produto buscarPorId(long id) {
+        return repJPA.findById(id).orElse(null);
     }
 }

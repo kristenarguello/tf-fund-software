@@ -39,12 +39,34 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    protected Pedido() {}
-    public long getId() { return id; }
-    public List<ItemPedido> getItens() { return Collections.unmodifiableList(itensPedido); }
-    public boolean removeItem(ItemPedido item) { return itensPedido.remove(item); }
-    public boolean addItem(ItemPedido item) { return itensPedido.add(item); }
-    public Cliente getCliente() { return cliente; }
-    public void addOrcamento(Orcamento orcamento) {  orcamentos.add(orcamento); }
-    public List<Orcamento> getOrcamentos() { return orcamentos; }
+    protected Pedido() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public List<ItemPedido> getItens() {
+        return Collections.unmodifiableList(itensPedido);
+    }
+
+    public boolean removeItem(ItemPedido item) {
+        return itensPedido.remove(item);
+    }
+
+    public boolean addItem(ItemPedido item) {
+        return itensPedido.add(item);
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void addOrcamento(Orcamento orcamento) {
+        orcamentos.add(orcamento);
+    }
+
+    public List<Orcamento> getOrcamentos() {
+        return orcamentos;
+    }
 }

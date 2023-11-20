@@ -1,30 +1,28 @@
 package br.fds.demo.Aplicacao.DTOs;
 
-import br.fds.demo.Dominio.Entidades.Produto;
-
 public class ItemPedidoDTO {
     private int quantidade;
-    private Produto produto;
+    private long idProduto;
 
-    public ItemPedidoDTO(int quantidade, Produto produto) {
+    public ItemPedidoDTO(int quantidade, long idProduto) {
         this.quantidade = quantidade;
-        this.produto = produto;
+        this.idProduto = idProduto;
     }
 
     public int getQuantidade() {
         return quantidade;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public long getIdProduto() {
+        return idProduto;
     }
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setIdProduto(long idProduto) {
+        this.idProduto = idProduto;
     }
 
 }

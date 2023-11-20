@@ -1,28 +1,18 @@
 package br.fds.demo.Aplicacao.DTOs;
 
-import java.util.List;
-
-import br.fds.demo.Dominio.Entidades.ItemPedido;
-
 public class PedidoDTO {
-    private long id;
-    private List<ItemPedido> itensPedido;
+    private long idPedido;
     private long idCliente;
     private String nomeCliente;
 
-    public PedidoDTO(long id, List<ItemPedido> itensPedido, long idCliente, String nomeCliente) {
-        this.id = id;
-        this.itensPedido = itensPedido;
+    public PedidoDTO(long idPedido, long idCliente, String nomeCliente) {
+        this.idPedido = idPedido;
         this.idCliente = idCliente;
         this.nomeCliente = nomeCliente;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public List<ItemPedido> getItensPedido() {
-        return itensPedido;
+    public long getIdPedido() {
+        return idPedido;
     }
 
     public long getIdCliente() {
@@ -33,12 +23,8 @@ public class PedidoDTO {
         return nomeCliente;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setItensPedido(List<ItemPedido> itensPedido) {
-        this.itensPedido = itensPedido;
+    public void setIdPedido(long idPedido) {
+        this.idPedido = idPedido;
     }
 
     public void setIdCliente(long idCliente) {
