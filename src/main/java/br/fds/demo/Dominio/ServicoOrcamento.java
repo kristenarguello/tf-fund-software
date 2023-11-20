@@ -67,7 +67,12 @@ public class ServicoOrcamento {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O pedido não pôde ser encontrado");
         float percentualDesconto = fabricaDeDescontos.getDesconto(pedido);
         Orcamento orcamento = new Orcamento(pedido, 0.10f, percentualDesconto);
-        repOrcamentos.salvar(orcamento);
+        try{
+            repOrcamentos.salvar(orcamento);
+        }catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Orçamento já gerado");
+        }
+
         return orcamento;
     }
 }
