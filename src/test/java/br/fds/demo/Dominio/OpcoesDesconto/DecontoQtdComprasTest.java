@@ -52,11 +52,7 @@ public class DecontoQtdComprasTest {
         }
 
         // garante desconto de 25%, pois o cliente tem 11 pedidos
-        Pedido ultimoPedido = (Pedido) cli.getPedidos().toArray()[10];
-        double valorUltimoPedido = ultimoPedido.getItens()
-                                              .stream()
-                                              .mapToDouble((ItemPedido ip) -> ip.getQuantidade()*ip.getProduto().getPrecoUnitario())
-                                              .sum();
-        Assertions.assertEquals(valorUltimoPedido*0.25, implDesconto.calcularDesconto(ultimoPedido));
+        Pedido ultimoPedido = (Pedido) cli.getPedidos().toArray()[11];
+        Assertions.assertEquals(0.25, implDesconto.calcularDesconto(ultimoPedido));
     }
 }
