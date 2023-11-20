@@ -65,14 +65,16 @@ public class ServicoOrcamento {
         Pedido pedido = repPedidos.buscarPorId(idPedido);
         if (pedido == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O pedido não pôde ser encontrado");
+
+        if(pedido.getOrcamentos().size() > 0){
+            for (Orcamento orcamento : pedido.getOrcamentos()) {
+                if(orcamento.estaAprovado())
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O pedido já possui um orçamento aprovado");
+            }
+        }
         float percentualDesconto = fabricaDeDescontos.getDesconto(pedido);
         Orcamento orcamento = new Orcamento(pedido, 0.10f, percentualDesconto);
-        try{
-            repOrcamentos.salvar(orcamento);
-        }catch(Exception e){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Orçamento já gerado");
-        }
-
+        repOrcamentos.salvar(orcamento);
         return orcamento;
     }
 }
