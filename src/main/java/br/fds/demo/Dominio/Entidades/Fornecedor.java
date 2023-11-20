@@ -1,40 +1,35 @@
 package br.fds.demo.Dominio.Entidades;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.CascadeType;
+import br.fds.demo.Aplicacao.DTOs.ProdutoDTO;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "fornecedores")
 public class Fornecedor {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
 
+    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    //@JoinColumn(name = "fornecedor_id")
+    //private Set<Produto> produtos;
+
     public Fornecedor(long id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.produtos = new HashSet<>();
+        //this.produtos = new HashSet<>();
     }
 
     protected Fornecedor(){}
     
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "fornecedor_id")
-    @JsonManagedReference
-    private Set<Produto> produtos;
-    
+    /*
     public Set<Produto> getProdutos() {
         return produtos;
     }
@@ -42,6 +37,7 @@ public class Fornecedor {
     public void getProdutos(Set<Produto> prods) {
         this.produtos = prods;
     }
+    */
     
     public long getCodigo() {
         return id;
@@ -55,5 +51,9 @@ public class Fornecedor {
     @Override
     public String toString() {
         return "Produto [codigo=" + id + ", nome=" + nome + "]";
+    }
+
+    public Collection<ProdutoDTO> getProdutos() {
+        return null;
     }
 }

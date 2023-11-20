@@ -3,65 +3,55 @@ package br.fds.demo.Interface;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import br.fds.demo.Aplicacao.BuscaFornecedor_UC;
-import br.fds.demo.Aplicacao.ProdutosDisponiveis_UC;
-import br.fds.demo.Aplicacao.ProdutosFornecedor_UC;
-import br.fds.demo.Dominio.Entidades.Fornecedor;
-import br.fds.demo.Dominio.Entidades.Produto;
+import br.fds.demo.Aplicacao.EfetivarOrcamento_UC;
+import br.fds.demo.Aplicacao.ListarTodosProdutos_UC;
+import br.fds.demo.Aplicacao.SolicitarOrcamentoUC;
+import br.fds.demo.Aplicacao.DTOs.OrcamentoDTO;
+import br.fds.demo.Aplicacao.DTOs.ProdutoDTO;
 
 @RestController
 @RequestMapping("/api")
 public class MainController {
-    
-    private ProdutosDisponiveis_UC produtosDisponiveis_UC;
-    private ProdutosFornecedor_UC produtosFornecedor_UC;
-    private BuscaFornecedor_UC buscaFornecedor_UC;
+    @Autowired
+    private EfetivarOrcamento_UC efetivarOrcamentoUc;
 
     @Autowired
-    public MainController(ProdutosDisponiveis_UC produtosDisponiveis_UC,
-                    ProdutosFornecedor_UC produtosFornecedor_UC,
-                    BuscaFornecedor_UC buscaFornecedor_UC) {
-                        this.produtosDisponiveis_UC = produtosDisponiveis_UC;
-                        this.produtosFornecedor_UC = produtosFornecedor_UC;
-                        this.buscaFornecedor_UC = buscaFornecedor_UC;
+    private ListarTodosProdutos_UC listarTodosProdutosUc;
 
+    @Autowired
+    private SolicitarOrcamentoUC solicitarOrcamentoUC;
 
-                    }
-    
-
-    @GetMapping("/produtosDisponiveis")
+    @PatchMapping("/efetivar-orcamento")
     @CrossOrigin("*")
-    public List<Produto> produtosDisponiveis(){
-        var lista = produtosDisponiveis_UC.run();
-        System.out.println("\n- - - - - - -");
-        for (Produto p : lista) {
-            System.out.printf("%s-%s\n",p.getDescricao(), p.getFornecedor().getNome());
+    public ResponseEntity<String> efetivarOrcamento(long idOrcamento) {
+        System.out.println(idOrcamento);
+        try {
+            efetivarOrcamentoUc.run(idOrcamento);
+            return ResponseEntity.ok("Orçamento efetivado com sucesso!");
+        } catch (ResponseStatusException ex) {
+            return ResponseEntity.status(ex.getStatusCode()).body(ex.getMessage());
         }
-        System.out.println("\n- - - - - - -");
-        return lista;
     }
 
-    @GetMapping("/getFornecedor")
+    @PostMapping("/solicitar-orcamento")
     @CrossOrigin("*")
-    public Fornecedor getFornecedor(String nome){
-        return buscaFornecedor_UC.run(nome);
+    public OrcamentoDTO solicitarOrcamento(long idPedido) {
+        return solicitarOrcamentoUC.run(idPedido);
     }
 
-    @GetMapping("/getFornecedor2/{nome}")
+    @GetMapping("/listar-todos-produtos")
     @CrossOrigin("*")
-    public Fornecedor getFornecedor2(@PathVariable("nome") String fornecedor){
-        return buscaFornecedor_UC.run(fornecedor);
+    public List<ProdutoDTO> listarTodosProdutos() {
+        return listarTodosProdutosUc.run();
     }
-    
-    @GetMapping("/getFornecedores")
-    @CrossOrigin("*")
-    public List<Fornecedor> getFornededores(){
-        return produtosFornecedor_UC.run();
-    }
+
 }
