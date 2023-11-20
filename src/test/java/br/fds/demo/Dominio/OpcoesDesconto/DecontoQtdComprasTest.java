@@ -51,7 +51,7 @@ public class DecontoQtdComprasTest {
             cli.addPedido(ped);
         }
 
-        // garante desconto de 25%, pois o cliente tem 11 pedidos
+        // garante desconto de 25%, pois o cliente tem 12 pedidos
         Pedido ultimoPedido = (Pedido) cli.getPedidos().toArray()[11];
         Assertions.assertEquals(0.25, implDesconto.calcularDesconto(ultimoPedido));
     }
