@@ -16,21 +16,21 @@ import br.fds.demo.Dominio.Entidades.Cliente;
 
 @Repository
 @Primary
-public class RepClientesJPA implements IRepClientes{
+public class RepClientesJPA implements IRepClientes {
     IRepClientesJPA repJPA;
 
     @Autowired
-    public RepClientesJPA(IRepClientesJPA repClientesJPA){
+    public RepClientesJPA(IRepClientesJPA repClientesJPA) {
         this.repJPA = repClientesJPA;
     }
 
     @Override
-    public List<Cliente> all(){
+    public List<Cliente> all() {
         return (List<Cliente>) repJPA.findAll();
     }
 
     @Override
-    public List<Cliente> topThreeClientes(){
+    public List<Cliente> topThreeClientes() {
         return all()
                 .stream()
                 .sorted((c1, c2) -> c2.getPedidos().size() - c1.getPedidos().size())
@@ -39,7 +39,7 @@ public class RepClientesJPA implements IRepClientes{
     }
 
     @Override
-    public HashMap<Cliente,Long> threeClientsMostNotApprovedBudget() {
+    public HashMap<Cliente, Long> threeClientsMostNotApprovedBudget() {
         Map<Cliente, Long> aux = new HashMap<>();
         // get amount of not approved budgets for each client
         ((Collection<Cliente>) repJPA.findAll())
@@ -47,25 +47,30 @@ public class RepClientesJPA implements IRepClientes{
                 .forEach(c -> {
                     AtomicLong pedidos_nao_aprovados = new AtomicLong(0);
                     c.getPedidos()
-                        .forEach(p -> {
-                            if (p.getOrcamentos().size() == 0) return;
-                            pedidos_nao_aprovados.addAndGet(p.getOrcamentos()
-                                .stream()
-                                .filter(o -> !o.estaAprovado())
-                                .count());
-                            // return !p.getOrcamentos().estaAprovado();
-                        });
+                            .forEach(p -> {
+                                if (p.getOrcamentos().size() == 0)
+                                    return;
+                                pedidos_nao_aprovados.addAndGet(p.getOrcamentos()
+                                        .stream()
+                                        .filter(o -> !o.estaAprovado())
+                                        .count());
+                                // return !p.getOrcamentos().estaAprovado();
+                            });
                     aux.put(c, pedidos_nao_aprovados.get());
-                }
-        );       
+                });
 
         // return the top 3 ones
         return aux.entrySet()
-            .stream()
-            .sorted(Map.Entry.<Cliente, Long>comparingByValue().reversed())
-            .filter(e -> e.getValue() > 0)
-            .limit(3)
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
+                .stream()
+                .sorted(Map.Entry.<Cliente, Long>comparingByValue().reversed())
+                .filter(e -> e.getValue() > 0)
+                .limit(3)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, HashMap::new));
+    }
+
+    @Override
+    public Cliente buscarPorId(long id) {
+        return repJPA.findById(id).orElse(null);
     }
 
 }
