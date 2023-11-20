@@ -17,12 +17,20 @@ public class DescontoValorMedio implements IDescontoStrategy {
 
         Pedido[] aux = cli.getPedidos().toArray(new Pedido[tam]);
         int total = 0;
-        for (int i=1; i<4; i++) { //comeca do segundo pois pedido atual é o primeiro
-            for (Orcamento orcamento : aux[tam - i].getOrcamentos()) {
-                if (orcamento.estaAprovado()) {
-                    total += orcamento.getPrecoFinal();
-                }
-            }
+        int i = 1;
+        int orcamentos = 0;
+        while (i < aux.length) {
+                    for (Orcamento orcamento : aux[tam - i].getOrcamentos()) {
+                        if (orcamento.estaAprovado()) {
+                            total += orcamento.getPrecoFinal();
+                            orcamentos++;
+                        }
+                    }
+                    i++;
+        if (orcamentos == 3) {
+        break;
+        }
+                
         }
         System.out.println("TOTAL: " + total);
 
@@ -30,6 +38,8 @@ public class DescontoValorMedio implements IDescontoStrategy {
         if (media > 10000) {
             media -= 10000;
             int adicionais = media / 10000;
+            System.out.println("ADICIONAIS  " + adicionais);
+
             if (adicionais > 4) {
                 adicionais = 4;
             }
