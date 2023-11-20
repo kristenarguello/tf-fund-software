@@ -36,6 +36,7 @@ public class Pedido {
     public Pedido(Cliente cliente) throws IllegalArgumentException {
         this.itensPedido = new LinkedList<>();
         this.orcamentos = new LinkedList<>();
+        this.cliente = cliente;
     }
 
     protected Pedido() {}
